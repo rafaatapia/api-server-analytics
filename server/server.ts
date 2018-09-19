@@ -25,7 +25,7 @@ export class Server {
       try {
 
         const options: restify.ServerOptions = {
-          name: 'meat-api',
+          name: 'bmake-api',
           version: '1.0.0',
         }
         if (environment.security.enableHTTPS) {
