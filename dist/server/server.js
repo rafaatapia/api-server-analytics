@@ -17,7 +17,7 @@ class Server {
         return new Promise((resolve, reject) => {
             try {
                 const options = {
-                    name: 'meat-api',
+                    name: 'bmake-api',
                     version: '1.0.0',
                 };
                 if (environment_1.environment.security.enableHTTPS) {
