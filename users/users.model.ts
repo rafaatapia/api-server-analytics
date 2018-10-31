@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { validateCPF } from '../common/validators';
 import * as bcrypt from 'bcrypt';
 import { environment } from '../common/environment';
 
@@ -25,37 +24,43 @@ export interface UserModel extends mongoose.Model<User> {
 const userSchema = new mongoose.Schema({
   isAtivo: {
     type: Boolean,
-    required: true
+    required: [true, 'É necessário informar se o usuário está ativo.']
   },
   nome: {
     type: String,
-    required: true,
+    required: [true, 'É necessário informar o nome do usuário.'],
     minlength: 3
   },
   login: {
     type: String,
     unique: true,
-    required: true,
-    minlength: 5
+    field: 'data cadastro',
+    required: [true, 'É necessário inserir um login!'],
+    minlength: [5, 'O login deve conter mais de 5 caracteres!']
   },
   senha: {
     type: String,
-    required: true,
+    required: [true, 'É necessário inserir uma senha!'],
     select: false,
-    minlength: 5,
+    minlength: [5, 'A senha deve conter mais de 5 caracteres!'],
   },
   email: {
     type: String,
     required: false,
-    match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    validate: {
+      validator: function(email) {
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+      },
+      message: props => `${props.value} não é um email válido`
+    },
   },
   perfilAcesso: {
-    type: [String],
-    required: true
+    type: String,
+    required: [true, 'É necesśario informar o perfil de acesso do usuário']
   },
   sexo: {
     type: String,
-    required: true,
+    required: false,
     enum: ['Masculino', 'Feminino']
   },
   telefone: {
@@ -64,11 +69,11 @@ const userSchema = new mongoose.Schema({
   },
   dataCadastro: {
     type: Date,
-    required: true
+    required: [true, 'É necessário informar a data de cadastro. Informe ao Suporte Técnico!']
   },
   dataNascimento: {
     type: Date,
-    required: true
+    required: [true, 'É necessário informar a data de nascimento do usuaŕio.']
   }
 });
 

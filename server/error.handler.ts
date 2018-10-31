@@ -1,7 +1,6 @@
 import * as restify from 'restify';
 
 export const handleError = (req: restify.Request, res: restify.Response, err, done) => {
-  //console.log(err);
   err.toJSON = () => {
     return {
       message: err.message
@@ -9,8 +8,9 @@ export const handleError = (req: restify.Request, res: restify.Response, err, do
   };
   switch (err.name) {
     case 'MongoError':
-      if (err.code === 11000) {
+      if (err.code === 11000) {        
         err.statusCode = 400;
+        err.message = 'Esse registro já existe na base de dados!'
       }
       break;
     case 'ValidationError':
@@ -20,8 +20,8 @@ export const handleError = (req: restify.Request, res: restify.Response, err, do
         messages.push({ message: err.errors[name].message })
       };
       err.toJSON = () => {
-        return {
-          message: 'Validation error while processing your request',
+        return {          
+          message: 'Alguns campos estão inválidos...',
           errors: messages
         }
       };
