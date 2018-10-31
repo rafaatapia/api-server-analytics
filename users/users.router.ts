@@ -15,7 +15,7 @@ class UsersRouter extends ModelRouter<User> {
   }
 
   findByLogin = (req, res, next) => {
-    if (req.query.email) {
+    if (req.query.login) {
       User.findByLogin(req.query.login)
         .then(user => user ? [user] : [])
         .then(this.renderAll(res, next, {
@@ -30,11 +30,12 @@ class UsersRouter extends ModelRouter<User> {
 
   applyRoutes(application: restify.Server) {
 
-    application.get(`${this.basePath}`, [authorize('admin'), this.findByLogin, this.findAll]);
-    application.get(`${this.basePath}/:id`, [authorize('admin'), this.validateId, this.findById]);
-    application.post(`${this.basePath}`, [this.save]);
-    application.put(`${this.basePath}/:id`, [authorize('admin'), this.validateId, this.replace]);
-    application.patch(`${this.basePath}/:id`, [this.validateId, this.update]);
+    // usar .../users?nome=Rafael para usar o find by
+    application.get(`${this.basePath}`, [authorize('admin', 'professor'), this.findByLogin, this.findAll]);
+    application.get(`${this.basePath}/:id`, [authorize('admin', 'professor'), this.validateId, this.findById]);
+    application.post(`${this.basePath}`, [authorize('admin', 'professor'), this.save]);
+    // application.put(`${this.basePath}/:id`, [this.validateId, this.replace]);
+    application.patch(`${this.basePath}/:id`, [authorize('admin', 'professor'), this.validateId, this.update]);
     application.del(`${this.basePath}/:id`, [authorize('admin'), this.validateId, this.delete]);
 
     application.post(`${this.basePath}/authenticate`, authenticate);
