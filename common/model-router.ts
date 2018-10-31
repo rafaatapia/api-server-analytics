@@ -43,7 +43,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 
   validateId = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      next(new NotFoundError('Document not found'));
+      next(new NotFoundError('Registro não encontrado'));
     } else {
       next();
     }
@@ -79,11 +79,12 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
   replace = (req, res, next) => {
     const options = { runValidators: true, overwrite: true };
     this.model.update({ _id: req.params.id }, req.body, options).exec().then(result => {
-      if (result.n) {
-        return this.model.findById(req.params.id)
-      } else {
-        throw new NotFoundError('Documento não encontrado');
-      }
+      throw new Error('Metodo não implementado!')
+      // if (result.n) {
+      //   return this.model.findById(req.params.id)
+      // } else {
+      //   throw new NotFoundError('Documento não encontrado');
+      // }
     }).then(this.render(res, next))
       .catch(next);
   }
@@ -100,7 +101,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
       if (cmdResult) {
         res.send(204);
       } else {
-        throw new NotFoundError('Documento não encontrado');
+        throw new NotFoundError('Registro não encontrado');
       }
       return next();
     }).catch(next);

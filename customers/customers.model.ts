@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { environment } from '../common/environment';
 
 export interface Customer extends mongoose.Document {
   isAtivo: boolean,
@@ -13,7 +12,7 @@ export interface Customer extends mongoose.Document {
   bairro: string,
   cep: number,
   cidade: JSON,
-  telefone: string[],
+  telefone: string,
   profissao: string,
   telefoneAdicional: string,
   estadoCivil: string,
@@ -51,7 +50,7 @@ const customerSchema = new mongoose.Schema({
       estado: String
   },
   telefone: {
-    type: [String],
+    type: String,
     requied: false
   },
   profissao: String,
@@ -59,7 +58,7 @@ const customerSchema = new mongoose.Schema({
   estadoCivil: String,
   dataCadastro: {
     type: Date,
-    required: true
+    required: true  
   },
   indicacao: {
       nome: String,

@@ -11,7 +11,7 @@ server.bootstrap([
 ]).then(server => {
   console.log('\n#################### Server is alive! ####################\n');
   console.log('==========================================================');
-  console.log('Server is listening on:\n ', server.application.address());
+  console.log('                Server is listening on:\n    ', server.application.address());
   console.log('==========================================================');
 }).catch(error => {
   console.log('Server failed to start');
