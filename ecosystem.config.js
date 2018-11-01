@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name      : 'bmake-api',
-    script    : './dist/main.js',
+    script    : '/bmake-api/dist/main.js',
     instances: 0,
     exec_mode: 'cluster',
     merge_logs: true,
