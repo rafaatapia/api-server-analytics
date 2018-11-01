@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import * as corsMiddleware from 'restify-cors-middleware'
 
 import { environment } from '../common/environment';
+import { logger } from '../common/logger';
 import { Router } from '../common/router';
 import { mergePatchBodyParser } from './merge-patch.parser';
 import { handleError } from './error.handler';
@@ -26,7 +27,8 @@ export class Server {
 
         const options: restify.ServerOptions = {
           name: 'bmake-api',
-          version: '1.0.0',
+          version: '0.1',
+          log: logger
         }
         if (environment.security.enableHTTPS) {
           options.certificate = fs.readFileSync(environment.security.certificate);
@@ -34,6 +36,10 @@ export class Server {
         }
 
         this.application = restify.createServer(options);
+
+        this.application.pre(restify.plugins.requestLogger({
+          log: logger
+        }))
 
         const corsOptions: corsMiddleware.Options = {
           preflightMaxAge: 10,
@@ -62,6 +68,16 @@ export class Server {
         });
 
         this.application.on('restifyError', handleError);
+        //(req, res, route, error)
+        // this.application.on('after', restify.plugins.auditLogger({
+        //   log: logger,
+        //   event: 'after',
+        //   server: this.application
+        // }));
+
+        // this.application.on('audit', data =>{
+          
+        // });
 
       } catch (error) {
         reject(error)

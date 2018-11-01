@@ -7,5 +7,9 @@ export const environment = {
     enableHTTPS: process.env.ENABLE_HTTPS || false,
     certificate: process.env.CERTI_FILE || './security/keys/cert.pem',
     key: process.env.CERTI_FILE_KEY || './security/keys/cert.pem'
+  },
+  log: {
+    name: 'bmake-api-logger',
+    level: process.env.LOG_LEVEL || 'debug'
   }
 }

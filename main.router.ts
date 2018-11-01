@@ -8,6 +8,7 @@ class MainRouter extends Router {
         users: '/users',
         customers: '/customers'
       });
+      req.log.debug('Listado!')
     });
   }
 }
