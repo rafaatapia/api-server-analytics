@@ -14,7 +14,7 @@ export const authenticate: restify.RequestHandler = (req, res, next) => {
           const token = jwt.sign({ sub: user.login, iss: 'bmake-api' },
             environment.security.apiSecret);
             // retorna os dados do usuario junto com o token
-          res.json({ nome: user.nome, login: user.login, acessToken: token });
+          res.json({ _id: user._id ,nome: user.nome, login: user.login, acessToken: token });
           return next(false);
         } else {
           return next(new NotAuthorizedError('Credenciais inválidas'));
