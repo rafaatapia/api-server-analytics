@@ -5,6 +5,7 @@ import { environment } from '../common/environment';
 export interface User extends mongoose.Document {
   isAtivo: boolean,
   nome: string,
+  codigo: number,
   login: string,
   senha: string,
   email: string,
@@ -30,6 +31,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'É necessário informar o nome do usuário.'],
     minlength: 3
+  },
+  codigo: {
+    type: Number,
+    required: false
   },
   login: {
     type: String,
