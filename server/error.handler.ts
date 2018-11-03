@@ -21,7 +21,7 @@ export const handleError = (req: restify.Request, res: restify.Response, err, do
       };
       err.toJSON = () => {
         return {          
-          message: 'Alguns campos estão inválidos...',
+          message: 'Alguns campos estão inválidos',
           errors: messages
         }
       };
