@@ -8,8 +8,8 @@ export const authenticate: restify.RequestHandler = (req, res, next) => {
   const { login, senha } = req.body;
   User.findByLogin(login, '+senha')
     .then(user => {
-      if(user.isAtivo){
-        if (user && user.matches(senha)) {
+      if(user && user.isAtivo){
+        if (user.matches(senha)) {
           //gerar o token
           const token = jwt.sign({ sub: user.login, iss: 'bmake-api' },
             environment.security.apiSecret);
@@ -20,7 +20,7 @@ export const authenticate: restify.RequestHandler = (req, res, next) => {
           return next(new NotAuthorizedError('Credenciais inválidas'));
         }
       } else {
-        return next(new NotAuthorizedError('Usuário inativo!'));
+        return next(new NotAuthorizedError('Usuário inativo ou inexistente!'));
       }
     }).catch(next)
 
