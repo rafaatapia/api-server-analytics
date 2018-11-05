@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
     },
   },
   perfilAcesso: {
-    type: String,
+    type: [String],
     required: [true, 'É necesśario informar o perfil de acesso do usuário']
   },
   sexo: {
@@ -91,7 +91,7 @@ userSchema.methods.matches = function(senha: string): boolean {
 }
 
 userSchema.methods.hasAny = function(...perfilAcesso: string[]): boolean {
-  return perfilAcesso.some(profile => this.perfilAcesso.indexOf(perfilAcesso) !== -1)
+  return perfilAcesso.some(perfilAcesso => this.perfilAcesso.indexOf(perfilAcesso) !== -1)
 }
 
 // Cria o hash para armazenar a senha no banco.
