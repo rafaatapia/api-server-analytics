@@ -28,16 +28,16 @@ export interface CustomerModel extends mongoose.Model<Customer> {
 const customerSchema = new mongoose.Schema({
   isAtivo: {
     type: Boolean,
-    required: true
+    required: [true, 'É necessário informar se o cliente está ativo.']
   },
   nome: {
     type: String,
-    required: true,
+    required: [true, 'É necessário informar o nome do cliente.'],
     minlength: 3
   },
   codigo: {
     type: Number,
-    required: true,
+    required: [true, 'É necessário informar o código do cliente.'],
     unique: true
   },
   dataNascimento: Date,
@@ -49,16 +49,13 @@ const customerSchema = new mongoose.Schema({
       nome: String,
       estado: String
   },
-  telefone: {
-    type: String,
-    requied: false
-  },
+  telefone: String,
   profissao: String,
   telefoneAdicional: String,
   estadoCivil: String,
   dataCadastro: {
     type: Date,
-    required: true  
+    required: [true, 'É necessário informar a data de cadastro. Informe ao Suporte Técnico!']  
   },
   indicacao: {
       nome: String,
