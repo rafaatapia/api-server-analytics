@@ -44,7 +44,7 @@ export class Server {
         const corsOptions: corsMiddleware.Options = {
           preflightMaxAge: 10,
           origins: ['*'],
-          allowHeaders: ['authorization'],
+          allowHeaders: ['Authorization'],
           exposeHeaders: ['x-custom-header']
         }
         const cors: corsMiddleware.CorsMiddleware = corsMiddleware(corsOptions);

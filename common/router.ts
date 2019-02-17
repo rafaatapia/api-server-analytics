@@ -32,7 +32,7 @@ export abstract class Router extends EventEmitter {
           this.emit('beforeRender', document)
           array[index] = this.envelope(document);
         });
-        response.json(this.envelopeAll(documents, options));
+        response.json(this.envelopeAll(documents));
       } else {
         response.json(this.envelopeAll([]));
       }
