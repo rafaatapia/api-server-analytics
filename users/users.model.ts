@@ -72,7 +72,7 @@ const userSchema = new mongoose.Schema({
     type: [String],
     requied: false
   },
-  dataCadastro: {
+  data_registro: {
     type: Date,
     required: [true, 'É necessário informar a data de cadastro. Informe ao Suporte Técnico!']
   },

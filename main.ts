@@ -1,11 +1,13 @@
 import { Server } from './server/server';
 import { usersRouter } from './users/users.router';
 import { customersRouter } from './customers/customers.router';
+import { monitoringRouter } from './monitoring/monitoring.router';
 import { mainRouter } from './main.router';
 
 const server = new Server();
 server.bootstrap([
   usersRouter,
+  monitoringRouter,
   customersRouter,
   mainRouter
 ]).then(server => {

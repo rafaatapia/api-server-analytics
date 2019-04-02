@@ -1,8 +1,9 @@
 {
-  "name": "bmake-API",
+  "name": "keeper-api",
   "version": "1.0.0",
-  "description": "API de Restaurantes",
-  "main": "index.js",
+  "description": "API do keeper",
+  "main": "./dist/main.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "ts-node jest.startup.ts"

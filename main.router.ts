@@ -6,7 +6,8 @@ class MainRouter extends Router {
     application.get('/', (req, res, next)=>{
       res.json({
         users: '/users',
-        customers: '/customers'
+        customers: '/customers',
+        monitoring: '/monitoring'
       });
       req.log.debug('Listado!')
     });

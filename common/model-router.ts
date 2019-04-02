@@ -5,7 +5,7 @@ import { NotFoundError } from 'restify-errors';
 export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 
   basePath: string;
-  pageSize: number = 10;
+  pageSize: number = 500000;
 
   constructor(protected model: mongoose.Model<D>) {
     super();
